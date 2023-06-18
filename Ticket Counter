@@ -1,0 +1,42 @@
+***N people from 1 to N are standing in the queue at a movie ticket counter. It is a weird counter, as it distributes tickets to the first K people 
+and then the last K people and again first K people and so on, once a person gets a ticket moves out of the queue. The task is to find the last 
+person to get the ticket.
+
+Example 1
+
+Input:
+N = 9
+K = 3
+Output:
+6
+***
+
+class Solution {
+    public static int distributeTicket(int N,int K)
+    {
+        Deque<Integer> q = new ArrayDeque<>();
+        for(int i=1;i<=N;i++){
+            q.add(i);
+        }
+        int flag = 0;
+        while(!q.isEmpty()){
+            int i=0;
+            if(flag==0){
+                while(i<K){
+                    if(q.size()==1)return q.removeFirst();
+                    q.removeFirst();
+                    i++;
+                }
+                flag = 1;
+            }else{
+                while(i<K){
+                    if(q.size()==1)return q.removeFirst();
+                    q.removeLast();
+                    i++;
+                }
+                flag = 0;
+            }
+        }
+        return 0;
+    }
+}
